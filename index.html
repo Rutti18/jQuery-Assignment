@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Validation </title>
+        <style> 
+        * {font-family: sans-serif;}
+
+        #form {line-height: 2;}
+
+        #form input {margin-left: 25px;}
+
+        #form input[id="phone"] { margin-left: 10px;}
+
+        #form textarea {
+        margin-left: 2px;
+        margin-top: 10px;
+        }
+
+        .warning {
+        color: red;
+        }
+        </style>
+
+        
+        <script
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
+    </head>
+    <body>      
+        <div id="pre-form">
+            <h2>We'd love to hear your thoughts!</h2>
+        </div>
+        <div class="form-container">
+            <form id="form" name="form">
+        
+            <h3>Contact Us Here:</h3>
+            <p id="messagep"></p>
+        
+            <label id="nameLabel" class="labels" >Name:</label>
+            <input id="name" placeholder="Name" type="text"><br>
+            <label id="emailLabel" class="labels">Email:</label>
+            <input id="email" placeholder="Email" type="email"><br>
+            <label id="phoneLabel" class="labels">Number:</label>
+            <input id="phone" placeholder="10 digit phone number." type="tel"><br>
+            <label id="messageLabel" class="labels">Message:</label>
+            <textarea id="message" placeholder="Your thoughts here :)"></textarea><br>
+            <input id="submit" type="button" value="Send It!"/>
+                
+            </form>
+        </div>
+        
+
+        
+        <script>
+          
+      
+           
+        $(document).ready(function() { 
+
+            
+            $("#submit").click(function(){
+
+                
+                var name = $('#name').val(); 
+                var email = $('#email').val();
+                var phone = $('#phone').val();
+                var message = $('#message').val();
+                console.log(name,email,phone,message);
+
+                
+                var required = [];
+
+                
+                required.push( { 'name':name, 'email':email, 'phone':phone, 'message':message} );
+
+                
+                for(let i=0; i<required.length;i++){
+                    
+
+                    
+                    if( required[i]['name'] == '' ){ 
+                        
+                        $('#messagep').html("Please Fill Out Required Fields");
+                        $('#messagep').addClass("warning");
+                       
+                        $('#nameLabel').addClass("warning"); 
+
+                    }else{
+                        console.log(1)
+                        $('#nameLabel').removeClass("warning"); 
+                    } 
+                    
+                    if(required[i]['email'] == '' ){
+                        
+                            $('#messagep').html("Please Fill Out Required Fields");
+                            $('#messagep').addClass("warning");
+
+                            $('#emailLabel').addClass("warning");
+
+                    }else{
+                        $('#emailLabel').removeClass("warning"); 
+
+                    } 
+                    
+                    if(required[i]['phone'] == '' ){
+                        $('#messagep').html("Please Fill Out Required Fields");
+                        $('#messagep').addClass("warning");
+
+                        $('#phoneLabel').addClass("warning"); 
+
+                    }else{
+                        $('#phoneLabel').removeClass("warning"); 
+
+                    }
+                    
+                    if(required[i]['message'] == '' ){
+                        $('#messagep').html("Please Fill Out Required Fields");
+                        $('#messagep').addClass("warning");
+
+                        $('#messageLabel').addClass("warning"); 
+                    }else{
+                        $('#messageLabel').removeClass("warning"); 
+
+                    }
+                }
+
+
+                
+                
+                
+                var find_all_tags_with_warning_class = $(".warning"); 
+                console.log(find_all_tags_with_warning_class);
+                
+                find_all_tags_with_warning_class.splice(0,1);  
+                console.log(find_all_tags_with_warning_class);
+                
+                if(find_all_tags_with_warning_class.length == 0){ 
+                    
+                    $('#form').remove(); 
+                    $('h2').html('Thanks for your feedback!')
+                }else{
+                    
+                }
+            });
+        });
+
+            
+        </script>
+    </body>
+</html>
